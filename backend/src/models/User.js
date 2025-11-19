@@ -23,7 +23,6 @@ const userSchema = new mongoose.Schema({
   },
 });
 
-const User = mongoose.model("User", userSchema);
 
 
 //hash the password
@@ -36,9 +35,11 @@ userSchema.pre("save", async function (next) {
 });
 
 //compare Password func
-userSchema.methods.comparePassword =async function (userPassword) {
+userSchema.methods.comparePassword = async function (userPassword) {
   //it will return true or false
   return await bcrypt.compare(userPassword, this.password)
-  
 }
+
+const User = mongoose.model("User", userSchema);
+
 export default User;
