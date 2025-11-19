@@ -34,4 +34,11 @@ userSchema.pre("save", async function (next) {
   this.password = await bcrypt.hash(this.password, salt);
   next();
 });
+
+//compare Password func
+userSchema.methods.comparePassword =async function (userPassword) {
+  //it will return true or false
+  return await bcrypt.compare(userPassword, this.password)
+  
+}
 export default User;
