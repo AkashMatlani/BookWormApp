@@ -10,7 +10,7 @@ router.post("/register", async (req, res) => {
   const { userName, email, password } = req.body;
 
   try {
-    if (!userName || !password || !email) {
+    if (!userName || !email || !password) {
       return res.status(400).json({ message: "All Fileds are required" });
     }
 
@@ -54,7 +54,7 @@ router.post("/register", async (req, res) => {
         id: user._id,
         userName: user.userName,
         email: user.email,
-        profileImage: profileImage,
+        profileImage: user.profileImage,
       },
     });
   } catch (error) {
@@ -77,7 +77,7 @@ router.post("/login", async (req, res) => {
       return res.status(400).json({ message: "Invalid credentials" });
     }
 
-    //check password
+    //compare password
     const checkPassword = await user.comparePassword(password);
     if (!checkPassword)
       return res.status(400).json({ message: "Invalid credentials" });
@@ -91,7 +91,7 @@ router.post("/login", async (req, res) => {
         id: user._id,
         userName: user.userName,
         email: user.email,
-        profileImage: profileImage,
+        profileImage: user.profileImage,
       },
     });
   } catch (error) {
