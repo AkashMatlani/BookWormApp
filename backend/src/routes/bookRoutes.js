@@ -2,10 +2,11 @@ import express from "express";
 
 import cloudinary from "../lib/cloudinary";
 import Book from "../models/Book.js";
+import protectRoute from "../middleware/auth.middleware.js";
 
 const router = express.Router();
 
-router.post("/", async (req, res) => {
+router.post("/", protectRoute, async (req, res) => {
   try {
     const { title, caption, rating, image } = req.body;
     if (!image || !title || !caption || !rating) {
@@ -22,11 +23,13 @@ router.post("/", async (req, res) => {
       caption,
       rating,
       image: imageUrl,
+      user: req.user._id,
     });
 
     await newBook.save();
     res.status(201).json(newBook);
   } catch (error) {
+    console.log("Error in creating books", error);
     res.status(500).json({ message: error.message });
   }
 });
