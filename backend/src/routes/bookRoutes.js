@@ -34,4 +34,14 @@ router.post("/", protectRoute, async (req, res) => {
   }
 });
 
+router.get("/", protectRoute, async (req, res) => {
+  try {
+    const books = await Book.find();
+    res.send(books);
+  } catch (error) {
+    console.log("Error in fetching books", error);
+    res.status(500).json({ message: "Internal Server Error" });
+  }
+});
+
 export default router;
