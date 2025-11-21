@@ -50,13 +50,30 @@ router.get("/", protectRoute, async (req, res) => {
 
     res.send({
       books,
-      currentPage:page,
+      currentPage: page,
       totalBooks,
-      totalPages:Math.ceil(totalBooks/limit)
+      totalPages: Math.ceil(totalBooks / limit),
     });
   } catch (error) {
     console.log("Error in fetching books", error);
     res.status(500).json({ message: "Internal Server Error" });
+  }
+});
+
+router.delete("/:id", protectRoute, async (req, res) => {
+  try {
+    const book = await Book.findById(req.params.id);
+    if (!book) return res.status(400).json({ message: "Book Not Found" });
+
+    //check if user is creater of book
+    if (book.user.toString() !== req.user._id.toString())
+      return res.status(400).json({ message: "UnAuthorized" });
+
+    await book.deleteOne();
+    res.json({message:"Book Deleted Successfully"})
+  } catch (error) {
+    console.log("Error in deleteing book",error)
+    res.status(500).json({message:"Internal Sever Error"})
   }
 });
 
