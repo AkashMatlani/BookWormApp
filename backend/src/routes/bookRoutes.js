@@ -70,22 +70,31 @@ router.delete("/:id", protectRoute, async (req, res) => {
       return res.status(400).json({ message: "UnAuthorized" });
 
     //delete image from cloudinary
-
-    if(book.image && book.image.includes("cloudinary"))
-    {
+    if (book.image && book.image.includes("cloudinary")) {
       try {
-        const publicId= book.image.split("/").pop().split(".")[0];
+        const publicId = book.image.split("/").pop().split(".")[0];
         await cloudinary.uploader.destroy(publicId);
       } catch (error) {
-        console.log("Error in deleteing image",error)
-
+        console.log("Error in deleteing image", error);
       }
     }
     await book.deleteOne();
-    res.json({message:"Book Deleted Successfully"})
+    res.json({ message: "Book Deleted Successfully" });
   } catch (error) {
-    console.log("Error in deleteing book",error)
-    res.status(500).json({message:"Internal Sever Error"})
+    console.log("Error in deleteing book", error);
+    res.status(500).json({ message: "Internal Sever Error" });
+  }
+});
+
+//recommended books
+
+router.get("/user", protectRoute, async (req, res) => {
+  try {
+    const books= await Book.find({user:req.user._id}).sort({createdAt:-1});
+    res.json(books);
+  } catch (error) {
+    console.error("Error in Fetching Recommended Books");
+    res.status(500).json({message:"Internal Server Error"});
   }
 });
 
