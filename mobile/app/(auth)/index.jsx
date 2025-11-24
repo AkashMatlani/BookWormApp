@@ -46,6 +46,28 @@ export default function Login() {
               ></TextInput>
             </View>
           </View>
+
+          {/* Password */}
+          <View style={styles.inputGroup}>
+            <Text style={styles.label}>Password</Text>
+            <View style={styles.inputContainer}>
+              <Ionicons
+                name="lock-closed-outline"
+                size={20}
+                color={COLORS.primary}
+                style={styles.inputIcon}
+              ></Ionicons>
+              {/* Input */}
+               <TextInput
+                style={styles.input}
+                placeholder="Enter your password"
+                placeholderTextColor={COLORS.placeholderText}
+                value={password}
+                onChangeText={setPassword}
+                secureTextEntry={!showPassword}
+              ></TextInput>
+            </View>
+          </View>
         </View>
       </View>
     </View>
