@@ -78,6 +78,19 @@ const styles = StyleSheet.create({
     shadowRadius: 4,
     elevation: 2,
   },
+  footer: {
+    flexDirection: "row",
+    justifyContent: "center",
+    marginTop: 24,
+  },
+  footerText: {
+    color: COLORS.textSecondary,
+    marginRight: 5,
+  },
+  link: {
+    color: COLORS.primary,
+    fontWeight: "600",
+  },
 });
 
 export default styles;
