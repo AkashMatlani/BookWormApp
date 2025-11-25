@@ -62,6 +62,22 @@ const styles = StyleSheet.create({
     height: 48,
     color: COLORS.textDark,
   },
+  eyeIcon: {
+    padding: 8,
+  },
+  button: {
+    backgroundColor: COLORS.primary,
+    borderRadius: 12,
+    height: 50,
+    justifyContent: "center",
+    alignItems: "center",
+    marginTop: 16,
+    shadowColor: COLORS.black,
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.1,
+    shadowRadius: 4,
+    elevation: 2,
+  },
 });
 
 export default styles;

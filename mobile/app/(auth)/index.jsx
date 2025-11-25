@@ -1,5 +1,12 @@
 import { useState } from "react";
-import { View, Image, Text, TextInput } from "react-native";
+import {
+  View,
+  Image,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  ActivityIndicator,
+} from "react-native";
 import styles from "../../assets/styles/login.styles";
 import { Ionicons } from "@expo/vector-icons";
 import COLORS from "../../constants/colors";
@@ -9,6 +16,8 @@ export default function Login() {
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+
+  const handleLogin =() => {};
 
   return (
     <View style={styles.container}>
@@ -58,7 +67,7 @@ export default function Login() {
                 style={styles.inputIcon}
               ></Ionicons>
               {/* Input */}
-               <TextInput
+              <TextInput
                 style={styles.input}
                 placeholder="Enter your password"
                 placeholderTextColor={COLORS.placeholderText}
@@ -66,8 +75,32 @@ export default function Login() {
                 onChangeText={setPassword}
                 secureTextEntry={!showPassword}
               ></TextInput>
+
+              <TouchableOpacity
+                onPress={() => setShowPassword(!showPassword)}
+                style={styles.eyeIcon}
+              >
+                <Ionicons
+                  name={showPassword ? "eye-outline" : "eye-off-outline"}
+                  size={20}
+                  color={COLORS.primary}
+                ></Ionicons>
+              </TouchableOpacity>
             </View>
           </View>
+
+          {/* Login button */}
+          <TouchableOpacity
+            style={styles.button}
+            onPress={handleLogin}
+            disabled={isLoading}
+          >
+            {isLoading ? (
+              <ActivityIndicator color="#fff" />
+            ) : (
+              <Text style={styles.buttonText}>Login</Text>
+            )}
+          </TouchableOpacity>
         </View>
       </View>
     </View>
