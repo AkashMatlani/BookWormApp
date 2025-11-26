@@ -70,6 +70,39 @@ const styles = StyleSheet.create({
   eyeIcon: {
     padding: 8,
   },
+  signupButton: {
+    alignItems: "center",
+    backgroundColor: COLORS.primary,
+    borderWidth: 1,
+    height: 50,
+    marginTop: 16,
+    shadowColor: COLORS.black,
+    shadowOffset: { width: 0, height: 2 },
+    justifyContent: "center",
+    borderRadius: 12,
+    shadowOpacity: 0.1,
+    shadowRadius: 4,
+    elevation: 2,
+  },
+  buttonText: {
+    color: COLORS.white,
+    fontSize: 16,
+    fontWeight: "600",
+  },
+
+  footerConatiner: {
+    justifyContent: "center",
+    flexDirection: "row",
+    marginTop: 20,
+  },
+  linkText: {
+    color: COLORS.primary,
+    fontWeight: "600",
+  },
+  footerText: {
+    color: COLORS.textSecondary,
+    marginRight: 5,
+  },
 });
 
 export default styles;

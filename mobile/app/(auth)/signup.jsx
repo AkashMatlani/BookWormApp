@@ -11,6 +11,7 @@ import styles from "../../assets/styles/signup.styles";
 import { Ionicons } from "@expo/vector-icons";
 import COLORS from "../../constants/colors";
 import { useState } from "react";
+import { router, useRouter } from "expo-router";
 
 export default function SignupScreen() {
   const [userName, setUserName] = useState("");
@@ -18,6 +19,8 @@ export default function SignupScreen() {
   const [Password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+
+  const router = useRouter();
 
   const handleSignup = () => {};
   return (
@@ -51,7 +54,7 @@ export default function SignupScreen() {
                   placeholder="John Doe"
                   placeholderTextColor={COLORS.placeholderText}
                   value={userName}
-                  onChangeText={setUserName}
+                  onChange={setUserName}
                   autoCapitalize="none"
                 ></TextInput>
               </View>
@@ -120,6 +123,14 @@ export default function SignupScreen() {
                 <Text style={styles.buttonText}>Sign up</Text>
               )}
             </TouchableOpacity>
+
+            {/* Footer */}
+            <View style={styles.footerConatiner}>
+              <Text style={styles.footerText}>Alreday have an account?</Text>
+              <TouchableOpacity onPress={() => router.back()}>
+                <Text style={styles.linkText}>Login</Text>
+              </TouchableOpacity>
+            </View>
           </View>
         </View>
       </View>
