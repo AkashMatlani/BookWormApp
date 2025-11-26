@@ -1,4 +1,5 @@
 import {
+  ActivityIndicator,
   KeyboardAvoidingView,
   Platform,
   Text,
@@ -16,7 +17,9 @@ export default function SignupScreen() {
   const [email, setEmail] = useState("");
   const [Password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
+  const handleSignup = () => {};
   return (
     <KeyboardAvoidingView
       behavior={Platform.OS === "ios" ? "padding" : "height"}
@@ -104,6 +107,19 @@ export default function SignupScreen() {
                 </TouchableOpacity>
               </View>
             </View>
+
+            {/* signup button */}
+            <TouchableOpacity
+              style={styles.signupButton}
+              onPress={handleSignup}
+              disabled={isLoading}
+            >
+              {isLoading ? (
+                <ActivityIndicator color="#fff" />
+              ) : (
+                <Text style={styles.buttonText}>Sign up</Text>
+              )}
+            </TouchableOpacity>
           </View>
         </View>
       </View>
