@@ -1,5 +1,6 @@
 import {
   ActivityIndicator,
+  Alert,
   KeyboardAvoidingView,
   Platform,
   Text,
@@ -12,17 +13,22 @@ import { Ionicons } from "@expo/vector-icons";
 import COLORS from "../../constants/colors";
 import { useState } from "react";
 import { router, useRouter } from "expo-router";
+import { useAuthStore } from "../../store/authStore";
 
 export default function SignupScreen() {
   const [userName, setUserName] = useState("");
   const [email, setEmail] = useState("");
-  const [Password, setPassword] = useState("");
+  const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
-  const [isLoading, setIsLoading] = useState(false);
 
   const router = useRouter();
 
-  const handleSignup = () => {};
+  const {isLoading,register} =useAuthStore();
+
+  const handleSignup = async() => {
+   const result = await register(userName,email,password);
+   if(!result.success) Alert.alert("Error",result.error) ;
+  };
   return (
     <KeyboardAvoidingView
       behavior={Platform.OS === "ios" ? "padding" : "height"}
@@ -54,7 +60,7 @@ export default function SignupScreen() {
                   placeholder="John Doe"
                   placeholderTextColor={COLORS.placeholderText}
                   value={userName}
-                  onChange={setUserName}
+                  onChangeText={setUserName}
                   autoCapitalize="none"
                 ></TextInput>
               </View>
@@ -74,7 +80,7 @@ export default function SignupScreen() {
                   placeholder="Email"
                   placeholderTextColor={COLORS.placeholderText}
                   value={email}
-                  onChange={setEmail}
+                  onChangeText={setEmail}
                   keyboardType="email-address"
                   autoCapitalize="none"
                 ></TextInput>
@@ -94,8 +100,8 @@ export default function SignupScreen() {
                   style={styles.input}
                   placeholder="Password"
                   placeholderTextColor={COLORS.placeholderText}
-                  value={Password}
-                  onChange={setPassword}
+                  value={password}
+                  onChangeText={setPassword}
                   secureTextEntry={!showPassword}
                 ></TextInput>
 

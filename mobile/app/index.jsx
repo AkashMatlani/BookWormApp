@@ -10,8 +10,7 @@ export default function Index() {
         alignItems: "center",
       }}
     >
-      <Text>Edit app/index.tsx to edit this screen.</Text>
-      <Link href={"/(auth)/signup"} >  <Text>Sign UP</Text></Link>
+      <Link href={"/(auth)/signup"}><Text>Sign Up</Text></Link>
       <Link href={"/(auth)"}><Text>Login</Text></Link>
     </View>
   );
