@@ -3,6 +3,7 @@ import {
   Platform,
   Text,
   TextInput,
+  TouchableOpacity,
   View,
 } from "react-native";
 import styles from "../../assets/styles/signup.styles";
@@ -13,6 +14,8 @@ import { useState } from "react";
 export default function SignupScreen() {
   const [userName, setUserName] = useState("");
   const [email, setEmail] = useState("");
+  const [Password, setPassword] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
 
   return (
     <KeyboardAvoidingView
@@ -69,6 +72,36 @@ export default function SignupScreen() {
                   keyboardType="email-address"
                   autoCapitalize="none"
                 ></TextInput>
+              </View>
+            </View>
+            {/* Password Input */}
+            <View style={styles.inputGroup}>
+              <Text style={styles.label}>Password</Text>
+              <View style={styles.inputContainer}>
+                <Ionicons
+                  name="lock-closed-outline"
+                  size={20}
+                  color={COLORS.primary}
+                  style={styles.inputIcon}
+                ></Ionicons>
+                <TextInput
+                  style={styles.input}
+                  placeholder="Password"
+                  placeholderTextColor={COLORS.placeholderText}
+                  value={Password}
+                  onChange={setPassword}
+                  secureTextEntry={!showPassword}
+                ></TextInput>
+
+                <TouchableOpacity
+                  onPress={() => setShowPassword(!showPassword)}
+                  style={styles.eyeIcon}
+                >
+                  <Ionicons
+                    name={showPassword ? "eye-outline" : "eye-off-outline"}
+                    size={20}
+                  ></Ionicons>
+                </TouchableOpacity>
               </View>
             </View>
           </View>

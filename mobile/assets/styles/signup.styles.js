@@ -67,6 +67,9 @@ const styles = StyleSheet.create({
     height: 48,
     color: COLORS.textDark,
   },
+  eyeIcon: {
+    padding: 8,
+  },
 });
 
 export default styles;
