@@ -12,6 +12,7 @@ import { useState } from "react";
 
 export default function SignupScreen() {
   const [userName, setUserName] = useState("");
+  const [email, setEmail] = useState("");
 
   return (
     <KeyboardAvoidingView
@@ -45,6 +46,27 @@ export default function SignupScreen() {
                   placeholderTextColor={COLORS.placeholderText}
                   value={userName}
                   onChangeText={setUserName}
+                  autoCapitalize="none"
+                ></TextInput>
+              </View>
+            </View>
+            {/* Email input */}
+            <View style={styles.inputGroup}>
+              <Text style={styles.label}>Email</Text>
+              <View style={styles.inputContainer}>
+                <Ionicons
+                  name="mail"
+                  size={20}
+                  color={COLORS.primary}
+                  style={styles.inputIcon}
+                ></Ionicons>
+                <TextInput
+                  style={styles.input}
+                  placeholder="Email"
+                  placeholderTextColor={COLORS.placeholderText}
+                  value={email}
+                  onChange={setEmail}
+                  keyboardType="email-address"
                   autoCapitalize="none"
                 ></TextInput>
               </View>
