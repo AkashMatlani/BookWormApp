@@ -3,7 +3,6 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const API_URL = "https://bookwormapp-u7sr.onrender.com/api/auth";
 
-
 export const useAuthStore = create((set) => ({
   user: null,
   token: null,
@@ -39,14 +38,20 @@ export const useAuthStore = create((set) => ({
     }
   },
 
-  checkAuth: async ()=>{
+  checkAuth: async () => {
     try {
       const token = await AsyncStorage.getItem("token");
-      const userJson =await AsyncStorage.getItem("user");
-      const user= userJson? JSON.parse(userJson): null;
-      set({token,user});
+      const userJson = await AsyncStorage.getItem("user");
+      const user = userJson ? JSON.parse(userJson) : null;
+      set({ token, user });
     } catch (error) {
-      console.log("Auth Check Failed",error);
+      console.log("Auth Check Failed", error);
     }
-  }
+  },
+
+  logout: async () => {
+    await AsyncStorage.removeItem("token");
+    await AsyncStorage.removeItem("user");
+    set({ token: null, user: null });
+  },
 }));
