@@ -3,15 +3,15 @@ import mongoose from "mongoose";
 const bookSchema = new mongoose.Schema(
   {
     title: {
-      type: string,
+      type: String,
       required: true,
     },
     caption: {
-      type: string,
+      type: String,
       required: true,
     },
     image: {
-      type: string,
+      type: String,
       required: true,
     },
     rating: {
