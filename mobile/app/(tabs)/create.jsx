@@ -1,13 +1,15 @@
-
-import { View, Text } from 'react-native'
-import React from 'react'
+import { View, KeyboardAvoidingView, Platform, ScrollView } from "react-native";
+import styles from "../../assets/styles/create.styles";
 
 const CreateScreen = () => {
   return (
-    <View>
-      <Text>Create Tab</Text>
-    </View>
-  )
-}
+    <KeyboardAvoidingView
+      style={{ flex: 1 }}
+      behavior={Platform.OS === "ios" ? "padding" : "height"}
+    >
+      <ScrollView contentContainerStyle={styles.container}></ScrollView>
+    </KeyboardAvoidingView>
+  );
+};
 
 export default CreateScreen;
