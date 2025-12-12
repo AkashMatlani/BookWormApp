@@ -68,6 +68,19 @@ const style = StyleSheet.create({
     height: 48,
     color: COLORS.textDark,
   },
+  startButton: {
+    padding: 8,
+  },
+  ratingContainer: {
+    flexDirection: "row",
+    justifyContent: "space-around",
+    alignItems: "center",
+    backgroundColor: COLORS.inputBackground,
+    borderRadius: 12,
+    borderWidth: 1,
+    borderColor: COLORS.border,
+    padding: 8,
+  },
 });
 
 export default style;
