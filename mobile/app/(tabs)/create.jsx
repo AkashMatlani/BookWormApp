@@ -7,17 +7,21 @@ import {
   TextInput,
   TouchableHighlight,
   TouchableOpacity,
+  Image,
+  Alert,
 } from "react-native";
 import styles from "../../assets/styles/create.styles";
 import { Ionicons } from "@expo/vector-icons";
 import COLORS from "../../constants/colors";
 import { useState } from "react";
-import style from "../../assets/styles/create.styles";
+import * as ImagePicker from "expo-image-picker";
 
 const CreateScreen = () => {
   const { title, setTitle } = useState("");
 
-  const [rating, setRating ] = useState(3);
+  const [rating, setRating] = useState(3);
+
+  const [image, setImage] = useState(null);
 
   const randerRatingPicker = () => {
     const starts = [];
@@ -36,7 +40,26 @@ const CreateScreen = () => {
         </TouchableOpacity>
       );
     }
-    return <View style={styles.ratingContainer}>{starts}</View>
+    return <View style={styles.ratingContainer}>{starts}</View>;
+  };
+
+  const pickImage = async () => {
+    try {
+      //request permission if needed
+      if (Platform.OS !== "web") {
+        const { status } =
+          await ImagePicker.requestMediaLibraryPermissionsAsync();
+        console.log({ status });
+
+        if (status !== "granted") {
+          Alert.alert(
+            "Permission Denied",
+            "We need camera roll permission to upload an image"
+          );
+          return;
+        }
+      }
+    } catch (error) {}
   };
   return (
     <KeyboardAvoidingView
@@ -80,6 +103,30 @@ const CreateScreen = () => {
             <View style={styles.formGroup}>
               <Text style={styles.label}>Your Rating</Text>
               {randerRatingPicker()}
+            </View>
+            {/* Image */}
+            <View style={styles.formGroup}>
+              <Text style={styles.label} Book Image></Text>
+              <TouchableOpacity style={styles.imagePicker} onPress={pickImage}>
+                {image ? (
+                  <Image
+                    source={{ uri: image }}
+                    style={styles.previewImage}
+                    onProgress={pickImage}
+                  />
+                ) : (
+                  <View style={styles.placeholderContainer}>
+                    <Ionicons
+                      name="image-outline"
+                      size={40}
+                      color={COLORS.textSecondary}
+                    ></Ionicons>
+                    <Text style={styles.placeholderText}>
+                      Tap to select image
+                    </Text>
+                  </View>
+                )}
+              </TouchableOpacity>
             </View>
           </View>
         </View>
