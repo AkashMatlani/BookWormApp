@@ -15,6 +15,8 @@ import { Ionicons } from "@expo/vector-icons";
 import COLORS from "../../constants/colors";
 import { useState } from "react";
 import * as ImagePicker from "expo-image-picker";
+import * as FileSystem from "expo-file-system";
+import { Buffer } from "buffer";
 
 const CreateScreen = () => {
   const { title, setTitle } = useState("");
@@ -22,6 +24,8 @@ const CreateScreen = () => {
   const [rating, setRating] = useState(3);
 
   const [image, setImage] = useState(null);
+
+  const [base64, setImageBase64] = useState();
 
   const randerRatingPicker = () => {
     const starts = [];
@@ -49,8 +53,6 @@ const CreateScreen = () => {
       if (Platform.OS !== "web") {
         const { status } =
           await ImagePicker.requestMediaLibraryPermissionsAsync();
-        console.log({ status });
-
         if (status !== "granted") {
           Alert.alert(
             "Permission Denied",
@@ -59,7 +61,34 @@ const CreateScreen = () => {
           return;
         }
       }
-    } catch (error) {}
+
+      //launch image library
+      const result = await ImagePicker.launchImageLibraryAsync({
+        mediaTypes: "images",
+        allowsEditing: true,
+        aspect: [4, 3],
+        quality: 0.5,
+        base64: true,
+      });
+
+      if (!result.canceled) {
+        setImage(result.assets[0].uri);
+
+        //if base64
+        if (result.assets[0].base64) {
+          setImageBase64((await result).assets[0].base64);
+        } else {
+          //otherwise,convert to base64
+          const response = await fetch(result.assets[0].uri);
+          const arrayBuffer = await response.arrayBuffer();
+          const base64 = Buffer.from(arrayBuffer).toString("base64");
+
+          setImageBase64(base64);
+        }
+      }
+    } catch (error) {
+      Alert.alert("Error", "There was a problem selecting your image");
+    }
   };
   return (
     <KeyboardAvoidingView
