@@ -81,6 +81,38 @@ const style = StyleSheet.create({
     borderColor: COLORS.border,
     padding: 8,
   },
+  previewImage: {
+    width: "100%",
+    height: "100%",
+  },
+  imagePicker: {
+    width: "100%",
+    height: 200,
+    backgroundColor: COLORS.inputBackground,
+    borderRadius: 12,
+    borderWidth: 1,
+    borderColor: COLORS.border,
+    overflow: "hidden",
+  },
+  placeholderContainer: {
+    width: "100%",
+    height: "100%",
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  placeholderText: {
+    color: COLORS.textSecondary,
+    marginTop: 8,
+  },
+  textArea: {
+    backgroundColor: COLORS.inputBackground,
+    borderRadius: 12,
+    borderWidth: 1,
+    borderColor: COLORS.border,
+    padding: 12,
+    height: 100,
+    color: COLORS.textDark,
+  },
 });
 
 export default style;

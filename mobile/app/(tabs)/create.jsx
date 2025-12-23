@@ -27,6 +27,8 @@ const CreateScreen = () => {
 
   const [base64, setImageBase64] = useState();
 
+  const [caption, setCaption] = useState("");
+
   const randerRatingPicker = () => {
     const starts = [];
     for (let i = 1; i <= 5; i++) {
@@ -156,6 +158,18 @@ const CreateScreen = () => {
                   </View>
                 )}
               </TouchableOpacity>
+            </View>
+            {/* Caption */}
+            <View style={styles.formGroup}>
+              <Text style={styles.label}>Caption</Text>
+              <TextInput
+                style={styles.textArea}
+                placeholder="Write your review or thoughts about this book.."
+                placeholderTextColor={COLORS.placeholderText}
+                value={caption}
+                onChange={setCaption}
+                multiline
+              ></TextInput>
             </View>
           </View>
         </View>
