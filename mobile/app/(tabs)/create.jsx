@@ -9,6 +9,7 @@ import {
   TouchableOpacity,
   Image,
   Alert,
+  ActivityIndicator,
 } from "react-native";
 import styles from "../../assets/styles/create.styles";
 import { Ionicons } from "@expo/vector-icons";
@@ -28,6 +29,8 @@ const CreateScreen = () => {
   const [base64, setImageBase64] = useState();
 
   const [caption, setCaption] = useState("");
+
+  const [loading, setLoading] = useState(false);
 
   const randerRatingPicker = () => {
     const starts = [];
@@ -92,6 +95,8 @@ const CreateScreen = () => {
       Alert.alert("Error", "There was a problem selecting your image");
     }
   };
+
+  const hanldeSubmit = async () => {};
   return (
     <KeyboardAvoidingView
       style={{ flex: 1 }}
@@ -171,6 +176,25 @@ const CreateScreen = () => {
                 multiline
               ></TextInput>
             </View>
+            <TouchableOpacity
+              style={styles.button}
+              onPress={() => hanldeSubmit}
+              disabled={loading}
+            >
+              {loading ? (
+                <ActivityIndicator color={COLORS.white} />
+              ) : (
+                <>
+                  <Ionicons
+                    name="cloud-upload-outline"
+                    size={20}
+                    color={COLORS.white}
+                    style={styles.buttonIcon}
+                  />
+                  <Text style={styles.buttonText}>Share</Text>
+                </>
+              )}
+            </TouchableOpacity>
           </View>
         </View>
       </ScrollView>

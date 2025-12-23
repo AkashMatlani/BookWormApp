@@ -113,6 +113,28 @@ const style = StyleSheet.create({
     height: 100,
     color: COLORS.textDark,
   },
+  button: {
+    backgroundColor: COLORS.primary,
+    borderRadius: 12,
+    height: 50,
+    flexDirection: "row",
+    justifyContent: "center",
+    alignItems: "center",
+    marginTop: 16,
+    shadowColor: COLORS.black,
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.1,
+    shadowRadius: 4,
+    elevation: 2,
+  },
+  buttonIcon: {
+    marginRight: 8,
+  },
+  buttonText: {
+    color: COLORS.white,
+    fontSize: 16,
+    fontWeight: "600",
+  },
 });
 
 export default style;
