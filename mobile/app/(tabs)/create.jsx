@@ -18,9 +18,13 @@ import { useState } from "react";
 import * as ImagePicker from "expo-image-picker";
 import * as FileSystem from "expo-file-system";
 import { Buffer } from "buffer";
+import { API_URL } from "../../constants/api";
+import { useRouter } from "expo-router";
+import { useAuthStore } from "../../store/authStore";
 
 const CreateScreen = () => {
-  const { title, setTitle } = useState("");
+  const router = useRouter();
+  const [ title, setTitle ] = useState("");
 
   const [rating, setRating] = useState(3);
 
@@ -31,6 +35,8 @@ const CreateScreen = () => {
   const [caption, setCaption] = useState("");
 
   const [loading, setLoading] = useState(false);
+
+  const {token} =useAuthStore();
 
   const randerRatingPicker = () => {
     const starts = [];
@@ -81,12 +87,12 @@ const CreateScreen = () => {
 
         //if base64
         if (result.assets[0].base64) {
-          setImageBase64((await result).assets[0].base64);
+          setImageBase64(result.assets[0].base64);
         } else {
-          //otherwise,convert to base64
-          const response = await fetch(result.assets[0].uri);
-          const arrayBuffer = await response.arrayBuffer();
-          const base64 = Buffer.from(arrayBuffer).toString("base64");
+             // otherwise, convert to base64
+          const base64 = await FileSystem.readAsStringAsync(result.assets[0].uri, {
+            encoding: FileSystem.EncodingType.Base64,
+          });
 
           setImageBase64(base64);
         }
@@ -96,7 +102,56 @@ const CreateScreen = () => {
     }
   };
 
-  const hanldeSubmit = async () => {};
+  const hanldeSubmit = async () => {
+    if (!title || !caption || !base64 || !rating) {
+      Alert.alert("Error", "Please fill in all fields");
+      return;
+    }
+
+    try {
+      setLoading(true);
+
+      //get file extension from URI or default to jpeg
+      const uriPath = image.split(".");
+      const fileType = uriPath[uriPath.length - 1];
+      const imageType = fileType
+        ? `image/${fileType.toLowerCase()}`
+        : "image/jpeg";
+      const imageDataURL = `data:${imageType};base64,${base64}`;
+
+      const response = await fetch(`${API_URL}/books`, {
+        method: "POST",
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json",
+        },
+
+        body: JSON.stringify({
+          title,
+          caption,
+          rating: rating,
+          image: imageDataURL,
+        }),
+      });
+
+      const data = await response.json();
+      if (!response.ok) throw new Error(data.message || "Something went wrong");
+
+      Alert.alert("Success", "Your book recommendation has been posted!");
+      setTitle("");
+      setCaption("");
+      setRating(3);
+      setImage(null);
+      setImageBase64(null);
+      router.push("/");
+    } catch (error) {
+      console.error("Error creating post:", error);
+      Alert.alert("Error", error.message || "Something went wrong");
+    } finally {
+      setLoading(false);
+    }
+  };
+  
   return (
     <KeyboardAvoidingView
       style={{ flex: 1 }}
@@ -131,7 +186,7 @@ const CreateScreen = () => {
                   placeholder="Enter book title"
                   placeholderTextColor={COLORS.placeholderText}
                   value={title}
-                  onChange={setTitle}
+                  onChangeText={setTitle}
                 ></TextInput>
               </View>
             </View>
@@ -142,7 +197,7 @@ const CreateScreen = () => {
             </View>
             {/* Image */}
             <View style={styles.formGroup}>
-              <Text style={styles.label} Book Image></Text>
+              <Text style={styles.label}> Book Image</Text>
               <TouchableOpacity style={styles.imagePicker} onPress={pickImage}>
                 {image ? (
                   <Image
@@ -172,13 +227,13 @@ const CreateScreen = () => {
                 placeholder="Write your review or thoughts about this book.."
                 placeholderTextColor={COLORS.placeholderText}
                 value={caption}
-                onChange={setCaption}
+                onChangeText={setCaption}
                 multiline
               ></TextInput>
             </View>
             <TouchableOpacity
               style={styles.button}
-              onPress={() => hanldeSubmit}
+              onPress={hanldeSubmit}
               disabled={loading}
             >
               {loading ? (
