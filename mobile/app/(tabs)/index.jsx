@@ -1,18 +1,105 @@
-import { View, Text, TouchableOpacity } from 'react-native'
-import React from 'react'
-import { useAuthStore } from '../../store/authStore'
+import { View, Text, TouchableOpacity, FlatList } from "react-native";
+import { useEffect, useState } from "react";
+import { useAuthStore } from "../../store/authStore";
+import { Image } from "expo-image";
 
-const indexTab = () => {
+import style from "../../assets/styles/home.styles";
+import { API_URL } from "../../constants/api";
+import { Ionicons } from "@expo/vector-icons";
+import COLORS from "../../constants/colors";
 
-  const {logout} =useAuthStore();
-  return (
-    <View>
-      <Text>Home Tab</Text>
-      <TouchableOpacity onPress={logout}>
-        <Text>Logout</Text>
-      </TouchableOpacity>
+export default function Home() {
+  const { token } = useAuthStore();
+  const [books, setBooks] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [refreshing, setRefreshing] = useState(false);
+  const [page, setPage] = useState(1);
+  const [hasMore, setHasMore] = useState(true);
+
+  const fetchBooks = async (pageNum = 1, refresh = false) => {
+    try {
+      if (refresh) setRefreshing(true);
+      else if (pageNum === 1) setLoading(true);
+
+      const response = await fetch(`${API_URL}/books?page=${pageNum}&limit=5`, {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      const data = await response.json();
+      if (!response.ok)
+        throw new Error(data.message || "Failed to fetch books");
+
+      //setBooks((previousBooks) => [...previousBooks, ...data.books]);
+
+      const uniqueBooks= refresh || pageNum ===1?data.books:Array.from(new Set([...books,...data.books].map((book)=>book._id))).map((id)=>[...books,...data.books].find((book)=>book._id===id));
+      setBooks(uniqueBooks);
+      setHasMore(pageNum < data.totalPages);
+      setPage(pageNum);
+    } catch (error) {
+      console.log("Error fetching books", error);
+    } finally {
+      if (refresh) setRefreshing(true);
+      else setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    fetchBooks();
+  }, []);
+
+  const handleLoadMore = async () => {};
+
+  const renderItem = ({ item }) => (
+    <View style={style.bookCard}>
+      <View style={style.bookHeader}>
+        <View style={style.userInfo}>
+          <Image source={{ uri: item.user.profileImage }} />
+          <Text style={style.userName}>{item.user.userName}</Text>
+        </View>
+      </View>
+
+      <View style={style.bookImageContainer}>
+        <Image
+          source={item.image}
+          style={style.bookImage}
+          contentFit="cover"
+        ></Image>
+      </View>
+
+      <View style={style.bookDetails}>
+        <Text style={style.bookTitle}>{item.title}</Text>
+        <View style={style.ratingContainer}>
+          {renderRatingStars(item.rating)}
+        </View>
+        <Text style={style.caption}>{item.caption}</Text>
+        
+      </View>
     </View>
-  )
-}
+  );
 
-export default indexTab
+  const renderRatingStars = (rating) => {
+    const stars = [];
+    for (let i = 1; i <= 5; i++) {
+      stars.push(
+        <Ionicons
+          key={i}
+          name={i <= rating ? "star" : "star-outline"}
+          size={16}
+          color={i <= rating ? "#f4b400" : COLORS.textSecondary}
+          style={{ marginRight: 2 }}
+        />
+      );
+    }
+    return stars;
+  };
+  return (
+    <View style={style.container}>
+      <FlatList
+        data={books}
+        renderItem={renderItem}
+        keyExtractor={(item) => item._id}
+        contentContainerStyle={style.listContainer}
+        showsVerticalScrollIndicator={false}
+      />
+    </View>
+  );
+}

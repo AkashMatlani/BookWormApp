@@ -56,5 +56,24 @@ const style = StyleSheet.create({
     width: "100%",
     height: "100%",
   },
+  bookDetails: {
+    padding: 4,
+  },
+  bookTitle: {
+    fontSize: 18,
+    fontWeight: "700",
+    color: COLORS.textPrimary,
+    marginBottom: 6,
+  },
+  ratingContainer: {
+    flexDirection: "row",
+    marginBottom: 8,
+  },
+  caption:{
+    fontSize:14,
+    color:COLORS.textDark,
+    marginBottom:8,
+    lineHeight:20,
+  }
 });
 export default style;
