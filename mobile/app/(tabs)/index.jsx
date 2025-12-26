@@ -53,7 +53,11 @@ export default function Home() {
     fetchBooks();
   }, []);
 
-  const handleLoadMore = async () => {};
+  const handleLoadMore = async () => {
+    if (hasMore && !loading && !refreshing) {
+      await fetchBooks(page + 1);
+    }
+  };
 
   const renderItem = ({ item }) => (
     <View style={style.bookCard}>
@@ -105,6 +109,8 @@ export default function Home() {
         keyExtractor={(item) => item._id}
         contentContainerStyle={style.listContainer}
         showsVerticalScrollIndicator={false}
+        onEndReached={handleLoadMore}
+        onEndReachedThreshold={0.1}
         ListHeaderComponent={
           <View style={style.header}>
             <Text style={style.headerTitle}>BookWorm 🐛</Text>
