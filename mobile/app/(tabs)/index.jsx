@@ -108,7 +108,22 @@ export default function Home() {
         ListHeaderComponent={
           <View style={style.header}>
             <Text style={style.headerTitle}>BookWorm 🐛</Text>
-            <Text style={style.headerTitle}>Discover great reads from the community👇</Text>
+            <Text style={style.headerTitle}>
+              Discover great reads from the community👇
+            </Text>
+          </View>
+        }
+        ListEmptyComponent={
+          <View style={style.emptyContainer}>
+            <Ionicons
+              name="book-outline"
+              size={60}
+              color={COLORS.textSecondary}
+            />
+            <Text style={style.emptyText}>No recommendations yet</Text>
+            <Text style={style.emptySubText}>
+              Be the fisrt to share a book!
+            </Text>
           </View>
         }
       />
