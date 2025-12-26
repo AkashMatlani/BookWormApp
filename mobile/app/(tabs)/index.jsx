@@ -13,6 +13,7 @@ import style from "../../assets/styles/home.styles";
 import { API_URL } from "../../constants/api";
 import { Ionicons } from "@expo/vector-icons";
 import COLORS from "../../constants/colors";
+import Loader from "../../components/Loader";
 
 export default function Home() {
   const { token } = useAuthStore();
@@ -107,6 +108,8 @@ export default function Home() {
     }
     return stars;
   };
+
+  if (loading) return <Loader />;
   return (
     <View style={style.container}>
       <FlatList
