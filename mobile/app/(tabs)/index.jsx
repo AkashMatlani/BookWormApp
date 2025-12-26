@@ -30,7 +30,14 @@ export default function Home() {
 
       //setBooks((previousBooks) => [...previousBooks, ...data.books]);
 
-      const uniqueBooks= refresh || pageNum ===1?data.books:Array.from(new Set([...books,...data.books].map((book)=>book._id))).map((id)=>[...books,...data.books].find((book)=>book._id===id));
+      const uniqueBooks =
+        refresh || pageNum === 1
+          ? data.books
+          : Array.from(
+              new Set([...books, ...data.books].map((book) => book._id))
+            ).map((id) =>
+              [...books, ...data.books].find((book) => book._id === id)
+            );
       setBooks(uniqueBooks);
       setHasMore(pageNum < data.totalPages);
       setPage(pageNum);
@@ -71,7 +78,6 @@ export default function Home() {
           {renderRatingStars(item.rating)}
         </View>
         <Text style={style.caption}>{item.caption}</Text>
-        
       </View>
     </View>
   );
@@ -99,6 +105,12 @@ export default function Home() {
         keyExtractor={(item) => item._id}
         contentContainerStyle={style.listContainer}
         showsVerticalScrollIndicator={false}
+        ListHeaderComponent={
+          <View style={style.header}>
+            <Text style={style.headerTitle}>BookWorm 🐛</Text>
+            <Text style={style.headerTitle}>Discover great reads from the community👇</Text>
+          </View>
+        }
       />
     </View>
   );

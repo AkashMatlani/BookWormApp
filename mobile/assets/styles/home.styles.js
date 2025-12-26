@@ -69,11 +69,27 @@ const style = StyleSheet.create({
     flexDirection: "row",
     marginBottom: 8,
   },
-  caption:{
-    fontSize:14,
-    color:COLORS.textDark,
-    marginBottom:8,
-    lineHeight:20,
-  }
+  caption: {
+    fontSize: 14,
+    color: COLORS.textDark,
+    marginBottom: 8,
+    lineHeight: 20,
+  },
+  header: {
+    marginBottom: 20,
+    alignItems: "center",
+  },
+  headerTitle: {
+    fontSize: 24,
+    fontFamily: "JetBrainsMono-Medium",
+    letterSpacing: 0.5,
+    color: COLORS.primary,
+    marginBottom: 8,
+  },
+  headerSubTitle: {
+    fontSize: 14,
+    color: COLORS.textSecondary,
+    textAlign: "center",
+  },
 });
 export default style;
