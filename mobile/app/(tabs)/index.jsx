@@ -1,4 +1,10 @@
-import { View, Text, TouchableOpacity, FlatList } from "react-native";
+import {
+  View,
+  Text,
+  TouchableOpacity,
+  FlatList,
+  ActivityIndicator,
+} from "react-native";
 import { useEffect, useState } from "react";
 import { useAuthStore } from "../../store/authStore";
 import { Image } from "expo-image";
@@ -118,6 +124,15 @@ export default function Home() {
               Discover great reads from the community👇
             </Text>
           </View>
+        }
+        ListFooterComponent={
+          hasMore && books.length > 0 ? (
+            <ActivityIndicator
+              style={style.footerLoader}
+              size="small"
+              color={COLORS.primary}
+            />
+          ) : null
         }
         ListEmptyComponent={
           <View style={style.emptyContainer}>

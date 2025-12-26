@@ -109,5 +109,8 @@ const style = StyleSheet.create({
     color: COLORS.textSecondary,
     textAlign: "center",
   },
+  footerLoader: {
+    marginVertical: 20,
+  },
 });
 export default style;
