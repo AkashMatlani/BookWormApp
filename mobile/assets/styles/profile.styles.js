@@ -47,6 +47,25 @@ const profileStyle = StyleSheet.create({
     fontSize: 12,
     color: COLORS.textSecondary,
   },
+  logoutButton: {
+    backgroundColor: COLORS.primary,
+    borderRadius: 12,
+    padding: 12,
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "center",
+    marginBottom: 24,
+    shadowColor: COLORS.black,
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.1,
+    shadowRadius: 4,
+    elevation: 2,
+  },
+  logoutText: {
+    color: COLORS.white,
+    fontWeight: "600",
+    marginLeft: 8,
+  },
 });
 
 export default profileStyle;
