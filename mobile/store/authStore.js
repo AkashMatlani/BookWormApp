@@ -3,12 +3,11 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 
 import { API_URL } from "../constants/api";
 
-//const API_URL = "https://bookwormapp-u7sr.onrender.com/api/auth";
-
 export const useAuthStore = create((set) => ({
   user: null,
   token: null,
   isLoading: false,
+  isCheckingAuth: true,
 
   register: async (userName, email, password) => {
     set({ isLoading: true });
@@ -48,6 +47,8 @@ export const useAuthStore = create((set) => ({
       set({ token, user });
     } catch (error) {
       console.log("Auth Check Failed", error);
+    } finally {
+      set({ isCheckingAuth: false });
     }
   },
 
@@ -65,16 +66,16 @@ export const useAuthStore = create((set) => ({
         }),
       });
 
-      const data =await response.json();
-      if(!response.ok) throw new Error(data.message || "Something went wrong");
-      await AsyncStorage.setItem("user",JSON.stringify(data.user));
-      await AsyncStorage.setItem("token",data.token);
+      const data = await response.json();
+      if (!response.ok) throw new Error(data.message || "Something went wrong");
+      await AsyncStorage.setItem("user", JSON.stringify(data.user));
+      await AsyncStorage.setItem("token", data.token);
 
-      set({token:data.token, user:data.user, isLoading:false});
-      return {success:true}
+      set({ token: data.token, user: data.user, isLoading: false });
+      return { success: true };
     } catch (error) {
-      set({isLoading:false});
-      return{success:false,error:error.message}
+      set({ isLoading: false });
+      return { success: false, error: error.message };
     }
   },
   logout: async () => {
