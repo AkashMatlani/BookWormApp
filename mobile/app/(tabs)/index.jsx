@@ -4,6 +4,7 @@ import {
   TouchableOpacity,
   FlatList,
   ActivityIndicator,
+  RefreshControl,
 } from "react-native";
 import { useEffect, useState } from "react";
 import { useAuthStore } from "../../store/authStore";
@@ -34,9 +35,7 @@ export default function Home() {
       const data = await response.json();
       if (!response.ok)
         throw new Error(data.message || "Failed to fetch books");
-
-      //setBooks((previousBooks) => [...previousBooks, ...data.books]);
-
+      
       const uniqueBooks =
         refresh || pageNum === 1
           ? data.books
@@ -51,7 +50,7 @@ export default function Home() {
     } catch (error) {
       console.log("Error fetching books", error);
     } finally {
-      if (refresh) setRefreshing(true);
+      if (refresh) setRefreshing(false);
       else setLoading(false);
     }
   };
@@ -120,6 +119,14 @@ export default function Home() {
         showsVerticalScrollIndicator={false}
         onEndReached={handleLoadMore}
         onEndReachedThreshold={0.1}
+        refreshControl={
+          <RefreshControl
+            refreshing={refreshing}
+            onRefresh={() => fetchBooks(1, true)}
+            colors={[COLORS.primary]}
+            tintColor={COLORS.primary}
+          />
+        }
         ListHeaderComponent={
           <View style={style.header}>
             <Text style={style.headerTitle}>BookWorm 🐛</Text>
