@@ -81,6 +81,54 @@ const profileStyle = StyleSheet.create({
     fontSize: 14,
     color: COLORS.textSecondary,
   },
+  booksList: {
+    paddingBottom: 20,
+  },
+  bookItem: {
+    flexDirection: "row",
+    backgroundColor: COLORS.cardBackground,
+    borderRadius: 12,
+    padding: 12,
+    marginBottom: 12,
+    shadowColor: COLORS.black,
+    shadowOffset: { width: 0, height: 1 },
+    shadowOpacity: 0.1,
+    shadowRadius: 4,
+    elevation: 2,
+    borderWidth: 1,
+    borderColor: COLORS.border,
+  },
+  bookImage: {
+    width: 70,
+    height: 100,
+    borderRadius: 8,
+    marginRight: 12,
+  },
+  bookInfo: {
+    flex: 1,
+    justifyContent: "space-between",
+  },
+  ratingContainer: {
+    flexDirection: "row",
+    marginBottom: 4,
+  },
+  startButton: {
+    padding: 8,
+  },
+  bookCaption: {
+    fontSize: 14,
+    color: COLORS.textDark,
+    marginBottom: 4,
+    flex: 1,
+  },
+  bookDate: {
+    fontSize: 12,
+    color: COLORS.textSecondary,
+  },
+  deleteButton: {
+    padding: 8,
+    justifyContent: "center",
+  },
 });
 
 export default profileStyle;
