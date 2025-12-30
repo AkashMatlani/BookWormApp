@@ -66,6 +66,21 @@ const profileStyle = StyleSheet.create({
     fontWeight: "600",
     marginLeft: 8,
   },
+  bookHeader: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+    marginBottom: 16,
+  },
+  bookTitle: {
+    fontSize: 18,
+    fontWeight: "700",
+    color: COLORS.textPrimary,
+  },
+  booksCount: {
+    fontSize: 14,
+    color: COLORS.textSecondary,
+  },
 });
 
 export default profileStyle;
