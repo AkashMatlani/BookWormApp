@@ -1,4 +1,11 @@
-import { View, Text, Alert, FlatList, TouchableOpacity } from "react-native";
+import {
+  View,
+  Text,
+  Alert,
+  FlatList,
+  TouchableOpacity,
+  ActivityIndicator,
+} from "react-native";
 import profileStyle from "../../assets/styles/profile.styles";
 import ProfileHeader from "../../components/ProfileHeader";
 import LogoutButton from "../../components/LogoutButton";
@@ -16,6 +23,8 @@ const ProfileTab = () => {
 
   const router = useRouter();
   const { token } = useAuthStore();
+
+  const [deleteBookId, setDeleteBookId] = useState(null);
 
   const fetchData = async () => {
     try {
@@ -37,6 +46,7 @@ const ProfileTab = () => {
 
   const handleDeleteBook = async (bookId) => {
     try {
+      setDeleteBookId(bookId);
       const response = await fetch(`${API_URL}/books/${bookId}`, {
         method: "DELETE",
         headers: {
@@ -48,10 +58,12 @@ const ProfileTab = () => {
 
       if (!response.ok)
         throw new Error(data.message || "Failed to delete book");
-      setBooks(books.filter((book)=>book._id!==bookId));
-      Alert.alert("Success", "Recommendation delete successfully")
+      setBooks(books.filter((book) => book._id !== bookId));
+      Alert.alert("Success", "Recommendation delete successfully");
     } catch (error) {
-      Alert.alert("Error",error.message || "Failed to delete recommendation")
+      Alert.alert("Error", error.message || "Failed to delete recommendation");
+    } finally {
+      setDeleteBookId(null);
     }
   };
   const confirmDelete = (bookId) => {
@@ -88,11 +100,15 @@ const ProfileTab = () => {
         style={profileStyle.deleteButton}
         onPress={() => confirmDelete(item._id)}
       >
-        <Ionicons
-          name="trash-outline"
-          size={20}
-          color={COLORS.primary}
-        ></Ionicons>
+        {deleteBookId === item._id ? (
+          <ActivityIndicator size="small" color={COLORS.primary} />
+        ) : (
+          <Ionicons
+            name="trash-outline"
+            size={20}
+            color={COLORS.primary}
+          ></Ionicons>
+        )}
       </TouchableOpacity>
     </View>
   );
