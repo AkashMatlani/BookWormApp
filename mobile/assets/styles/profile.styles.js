@@ -129,6 +129,36 @@ const profileStyle = StyleSheet.create({
     padding: 8,
     justifyContent: "center",
   },
+  emptyContainer: {
+    alignItems: "center",
+    justifyContent: "center",
+    padding: 40,
+    marginTop: 20,
+  },
+  emptyText: {
+    fontSize: 16,
+    fontWeight: "600",
+    color: COLORS.textPrimary,
+    marginTop: 16,
+    marginBottom: 20,
+    textAlign: "center",
+  },
+  addButton: {
+    backgroundColor: COLORS.primary,
+    borderRadius: 12,
+    paddingVertical: 12,
+    paddingHorizontal: 20,
+    shadowColor: COLORS.black,
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.1,
+    shadowRadius: 4,
+    elevation: 2,
+  },
+  addButtonText: {
+    color: COLORS.white,
+    fontWeight: "600",
+    fontSize: 14,
+  },
 });
 
 export default profileStyle;

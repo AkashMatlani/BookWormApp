@@ -17,6 +17,7 @@ import { useAuthStore } from "../../store/authStore";
 import { Image } from "expo-image";
 import { Ionicons } from "@expo/vector-icons";
 import COLORS from "../../constants/colors";
+
 const ProfileTab = () => {
   const [books, setBooks] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
@@ -138,6 +139,7 @@ const ProfileTab = () => {
     await fetchData();
     setRefreshing(false);
   };
+
   return (
     <View style={profileStyle.container}>
       <ProfileHeader />
@@ -162,6 +164,16 @@ const ProfileTab = () => {
             colors={[COLORS.primary]}
             tintColor={COLORS.primary}
           />
+        }
+
+        ListEmptyComponent={
+          <View style={profileStyle.emptyContainer}>
+            <Ionicons name="book-outline" size={50} color={COLORS.textSecondary}/>
+            <Text style={profileStyle.emptyText}>No recommendation yet</Text>
+            <TouchableOpacity style={profileStyle.addButton} onPress={()=>router.push("/create")}>
+              <Text style={profileStyle.addButtonText}>Add your First Book</Text>
+            </TouchableOpacity>
+          </View>
         }
       />
     </View>
