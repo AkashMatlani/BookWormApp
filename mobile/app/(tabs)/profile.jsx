@@ -17,6 +17,7 @@ import { useAuthStore } from "../../store/authStore";
 import { Image } from "expo-image";
 import { Ionicons } from "@expo/vector-icons";
 import COLORS from "../../constants/colors";
+import Loader from "../../components/Loader";
 
 const ProfileTab = () => {
   const [books, setBooks] = useState([]);
@@ -140,6 +141,7 @@ const ProfileTab = () => {
     setRefreshing(false);
   };
 
+  if(isLoading && !refreshing) return <Loader/>
   return (
     <View style={profileStyle.container}>
       <ProfileHeader />
