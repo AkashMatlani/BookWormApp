@@ -5,6 +5,7 @@ import {
   FlatList,
   TouchableOpacity,
   ActivityIndicator,
+  RefreshControl,
 } from "react-native";
 import profileStyle from "../../assets/styles/profile.styles";
 import ProfileHeader from "../../components/ProfileHeader";
@@ -131,6 +132,12 @@ const ProfileTab = () => {
   useEffect(() => {
     fetchData();
   }, []);
+
+  const handleRefresh = async () => {
+    setRefreshing(true);
+    await fetchData();
+    setRefreshing(false);
+  };
   return (
     <View style={profileStyle.container}>
       <ProfileHeader />
@@ -148,6 +155,14 @@ const ProfileTab = () => {
         keyExtractor={(item) => item._id}
         showsVerticalScrollIndicator={false}
         contentContainerStyle={profileStyle.booksList}
+        refreshControl={
+          <RefreshControl
+            refreshing={refreshing}
+            onRefresh={handleRefresh}
+            colors={[COLORS.primary]}
+            tintColor={COLORS.primary}
+          />
+        }
       />
     </View>
   );
