@@ -39,12 +39,12 @@ CLOUDINARY_API_KEY=<YOUR_CLOUDINARY_API_KEY>
 CLOUDINARY_API_SECRET=<YOUR_CLOUDINARY_API_SECRET>
 
 API_URL=<YOUR_DEPLOYED_API_URL>
-###⚙️ Run the Backend
+⚙️ Run the Backend
 cd backend
 npm install
 npm run dev
 
-###📱 Run the Mobile App
+📱 Run the Mobile App
 cd mobile
 npm install
 npx expo
