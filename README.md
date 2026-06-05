@@ -1,10 +1,25 @@
 # 📚 BookWorm – Full-Stack React Native App 🚀  
 
+---
+
+## 📸 Screenshots
+
+<p align="center">
+  <img src="https://github.com/AkashMatlani/BookWormApp/tree/main/mobile/assets/screenshots/SignUpPage.jpeg" width="180" height="350" />
+  <img src="https://raw.githubusercontent.com/AkashMatlani/Spotlight-App/master/assets/screenshots/AddNewBook.jpeg" width="180" height="350"  />
+  <img src="https://raw.githubusercontent.com/AkashMatlani/Spotlight-App/master/assets/screenshots/BookLists.jpeg" width="180" height="350"  />
+  <img src="https://raw.githubusercontent.com/AkashMatlani/Spotlight-App/master/assets/screenshots/ProfilePage.jpeg" width="180" height="350"  />
+</p>
+
+---
+
 ## 🎯 What You’ll Build
 This is a **true full-stack project** — not just a pretty UI.
 
 - ✅ Works on real devices & simulators (Android / iOS)
 - ✅ Complete build in ~7 hours
+
+---
 
 ## 🧑‍🍳 App Features
 - 🔐 **Authentication** — Signup & login with JWT, error handling for invalid credentials  
@@ -16,6 +31,8 @@ This is a **true full-stack project** — not just a pretty UI.
 - 🌐 **Web Support** — Run on `localhost` in the browser  
 - 🚪 **Logout**
 
+---
+
 ## 🧠 What You’ll Learn
 - ⚙️ Build a REST API with **Node.js, Express & MongoDB**
 - 🔑 Implement stateless authentication using **JSON Web Tokens (JWT)**
@@ -25,6 +42,8 @@ This is a **true full-stack project** — not just a pretty UI.
 - 🌍 Ship a cross-platform app with **React Native + Expo Router**
 - 🧭 Animate navigation & shared element transitions
 - 🧪 Debug on a physical device — **no Android Studio or Xcode required**
+
+---
 
 ## 📁 Environment Variables
 
