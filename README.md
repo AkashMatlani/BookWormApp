@@ -5,10 +5,10 @@
 ## 📸 Screenshots
 
 <p align="center">
-  <img src="https://github.com/AkashMatlani/BookWormApp/tree/main/mobile/assets/screenshots/SignUpPage.jpeg" width="180" height="350" />
-  <img src="https://github.com/AkashMatlani/BookWormApp/tree/main/mobile/assets/screenshots/AddNewBook.jpeg" width="180" height="350"  />
-  <img src="https://github.com/AkashMatlani/BookWormApp/tree/main/mobile/assets/screenshots/BookLists.jpeg" width="180" height="350"  />
-  <img src="https://github.com/AkashMatlani/BookWormApp/tree/main/mobile/assets/screenshots/ProfilePage.jpeg" width="180" height="350"  />
+  <img src="https://raw.githubusercontent.com/AkashMatlani/BookWormApp/main/mobile/assets/screenshots/SignUpPage.jpeg" width="180" height="350" />
+  <img src="https://raw.githubusercontent.com/AkashMatlani/BookWormApp/main/mobile/assets/screenshots/AddNewBook.jpeg" width="180" height="350" />
+  <img src="https://raw.githubusercontent.com/AkashMatlani/BookWormApp/main/mobile/assets/screenshots/BookLists.jpeg" width="180" height="350" />
+  <img src="https://raw.githubusercontent.com/AkashMatlani/BookWormApp/main/mobile/assets/screenshots/ProfilePage.jpeg" width="180" height="350" />
 </p>
 
 ---
